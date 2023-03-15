@@ -1,4 +1,5 @@
 // See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using System; 
 namespace tictacproject 
 {
@@ -7,8 +8,8 @@ namespace tictacproject
         public int x{get; set; }
         public int y {get; set;}
         public Point(int x, int y){
-            x = x;  
-            y = y; 
+            this.x = x;  
+            this.y = y; 
         }
     }
     class program{
@@ -30,29 +31,47 @@ namespace tictacproject
               //operator to msee if computer will be X or O 
              computerPlayer = userInput.Equals(x, StringComparison.OrdinalIgnoreCase) ? computerPlayer = "O" : computerPlayer = "X"; 
              Console.WriteLine("You will be playing as " + userInput + " and I as " + computerPlayer); 
-             printBoard(); 
+             //printBoard(); 
 
+             Console.WriteLine("Lets start!"); 
+
+             Random rnd = new Random();
+             int randomInt = rnd.Next(1, 3);
+            if (randomInt == 1) {
+                Console.WriteLine("Computer goes first.");
+            } else {
+                Console.WriteLine("Player goes first.");
+               Point firstMove =  playerTurn();
+            }
             
-             gameChoice = Console.ReadLine(); 
-             
-           
-             int firstPoint = gameChoice[0];
+            int counter = 0;
+            while(counter != 9){
+                
+            }
 
-             int secoundPoint = gameChoice[2]; 
-            
-            Console.WriteLine(secoundPoint);
-
-             Point firstMove = new Point(firstPoint,secoundPoint); 
-
-            Console.WriteLine(firstMove.x);
-
-             
-             
 
         }
 
 
 
+
+
+    static Point playerTurn(){
+         while (true) {
+        Console.Write("Enter a point in the format of x,y (between 1 and 3): ");
+        string gameChoice = Console.ReadLine();
+        string[] coordinates = gameChoice.Split(',');
+        int x = int.Parse(coordinates[0]);
+        int y = int.Parse(coordinates[1]);
+
+        if (x >= 1 && x <= 3 && y >= 1 && y <= 3) {
+            Point point = new Point(x, y);
+            return point;
+        }
+
+        Console.WriteLine("Invalid input. Please enter values between 1 and 3.");
+    }
+    }
 
     //function to print board
        static void printBoard(){
@@ -62,32 +81,22 @@ namespace tictacproject
         }
 
         
-        static String checkMove(string argument){
-            String isValid = argument;
+        static Point checkMove(){
+             while (true) {
+        Console.Write("Enter a point in the format of x,y (between 1 and 3): ");
+        string gameChoice = Console.ReadLine();
+        string[] coordinates = gameChoice.Split(',');
+        int x = int.Parse(coordinates[0]);
+        int y = int.Parse(coordinates[1]);
 
+        if (x >= 1 && x <= 3 && y >= 1 && y <= 3) {
+            Point point = new Point(x, y);
+            Console.WriteLine("Point created: ({0}, {1})", point.x, point.y);
+            return point;
+        }
 
-            if(String.IsNullOrEmpty(isValid)){
-            while(String.IsNullOrEmpty(isValid)){
-                Console.WriteLine("Enter a Value to play the game!");
-                isValid = Console.ReadLine(); 
-            }} 
-
-            while(isValid.Length > 3){
-                Console.WriteLine("Enter a Value to play the game!");
-                isValid = Console.ReadLine(); 
-            }
-
-            while(isValid.Contains(",") == false)
-            {
-                Console.WriteLine("Enter a valid input should contain a ,!");
-                isValid = Console.ReadLine(); 
-                
-            }
-
-            
-
-
-            return isValid; 
+        Console.WriteLine("Invalid input. Please enter values between 1 and 3.");
+    }
         }
 
 

@@ -1,14 +1,25 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using System; 
 namespace tictacproject 
 {
+    class Point
+    {
+        public int x{get; set; }
+        public int y {get; set;}
+        public Point(int x, int y){
+            x = x;  
+            y = y; 
+        }
+    }
     class program{
 
         static void Main(string[] args)
         {
             //local strings 
-            String playerInput, userInput, computerPlayer,x;
+            String playerInput, userInput, computerPlayer,x, gameChoice;
             x = "X";
+            //array for answers 
+            String[] fillOutBoard = new String[9]; 
             Console.WriteLine("Welcome to the tik tac toe simulator!"); 
             Console.WriteLine("Would you like to be X or O?"); 
               playerInput = Console.ReadLine(); 
@@ -18,8 +29,26 @@ namespace tictacproject
               userInput = checkInput(playerInput); 
               //operator to msee if computer will be X or O 
              computerPlayer = userInput.Equals(x, StringComparison.OrdinalIgnoreCase) ? computerPlayer = "O" : computerPlayer = "X"; 
-             Console.WriteLine("You will be playing as " + userInput + "and I as " + computerPlayer); 
+             Console.WriteLine("You will be playing as " + userInput + " and I as " + computerPlayer); 
+             printBoard(); 
+
+            
+             gameChoice = Console.ReadLine(); 
              
+           
+             int firstPoint = gameChoice[0];
+
+             int secoundPoint = gameChoice[2]; 
+            
+            Console.WriteLine(secoundPoint);
+
+             Point firstMove = new Point(firstPoint,secoundPoint); 
+
+            Console.WriteLine(firstMove.x);
+
+             
+             
+
         }
 
 
@@ -27,10 +56,38 @@ namespace tictacproject
 
     //function to print board
        static void printBoard(){
-            
            Console.WriteLine("___|__|___");
            Console.WriteLine("___|__|___");
            Console.WriteLine("   |  |   "); 
+        }
+
+        
+        static String checkMove(string argument){
+            String isValid = argument;
+
+
+            if(String.IsNullOrEmpty(isValid)){
+            while(String.IsNullOrEmpty(isValid)){
+                Console.WriteLine("Enter a Value to play the game!");
+                isValid = Console.ReadLine(); 
+            }} 
+
+            while(isValid.Length > 3){
+                Console.WriteLine("Enter a Value to play the game!");
+                isValid = Console.ReadLine(); 
+            }
+
+            while(isValid.Contains(",") == false)
+            {
+                Console.WriteLine("Enter a valid input should contain a ,!");
+                isValid = Console.ReadLine(); 
+                
+            }
+
+            
+
+
+            return isValid; 
         }
 
 

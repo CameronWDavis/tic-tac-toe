@@ -1,15 +1,22 @@
 // See https://aka.ms/new-console-template for more information
-// See https://aka.ms/new-console-template for more information
 using System; 
 namespace tictacproject 
 {
+    //constructor for point object
     class Point
     {
+        //methods and getters
         public int x{get; set; }
         public int y {get; set;}
-        public Point(int x, int y){
+
+        public String value{get; set;}
+
+
+        //constructor 
+        public Point(int x, int y, String value){
             this.x = x;  
             this.y = y; 
+            this.value = value;
         }
     }
     class program{
@@ -34,20 +41,26 @@ namespace tictacproject
              //printBoard(); 
 
              Console.WriteLine("Lets start!"); 
+            //this is used for testing
+             Point[] pointArray = new Point[8];
+             Point test = playerTurn(userInput);
+             checkBoard(pointArray,test);
+
 
              Random rnd = new Random();
              int randomInt = rnd.Next(1, 3);
             if (randomInt == 1) {
                 Console.WriteLine("Computer goes first.");
+                int randomX = rnd.Next(1,3);
+                int randomY = rnd.Next(1,3);
+                Point move = new Point(randomX,randomY,computerPlayer);
             } else {
                 Console.WriteLine("Player goes first.");
-               Point firstMove =  playerTurn();
+               Point firstMove =  playerTurn(userInput);
+               
             }
             
-            int counter = 0;
-            while(counter != 9){
-                
-            }
+            
 
 
         }
@@ -55,8 +68,9 @@ namespace tictacproject
 
 
 
+ 
 
-    static Point playerTurn(){
+    static Point playerTurn(String userInput){
          while (true) {
         Console.Write("Enter a point in the format of x,y (between 1 and 3): ");
         string gameChoice = Console.ReadLine();
@@ -65,7 +79,7 @@ namespace tictacproject
         int y = int.Parse(coordinates[1]);
 
         if (x >= 1 && x <= 3 && y >= 1 && y <= 3) {
-            Point point = new Point(x, y);
+            Point point = new Point(x,y,userInput);
             return point;
         }
 
@@ -73,31 +87,17 @@ namespace tictacproject
     }
     }
 
-    //function to print board
-       static void printBoard(){
-           Console.WriteLine("___|__|___");
-           Console.WriteLine("___|__|___");
-           Console.WriteLine("   |  |   "); 
+    //function to add user move to array and print the required piece
+       static void checkBoard(Point[] points,Point moveMade){
+
+       int index = (moveMade.x - 1) * 3 + (moveMade.y - 1);//function to map index
+       points[index] = moveMade;
+       Console.WriteLine(moveMade.value);
+       
+           
         }
 
         
-        static Point checkMove(){
-             while (true) {
-        Console.Write("Enter a point in the format of x,y (between 1 and 3): ");
-        string gameChoice = Console.ReadLine();
-        string[] coordinates = gameChoice.Split(',');
-        int x = int.Parse(coordinates[0]);
-        int y = int.Parse(coordinates[1]);
-
-        if (x >= 1 && x <= 3 && y >= 1 && y <= 3) {
-            Point point = new Point(x, y);
-            Console.WriteLine("Point created: ({0}, {1})", point.x, point.y);
-            return point;
-        }
-
-        Console.WriteLine("Invalid input. Please enter values between 1 and 3.");
-    }
-        }
 
 
     //Function to verify user input 
